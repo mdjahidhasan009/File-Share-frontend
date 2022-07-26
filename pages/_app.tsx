@@ -1,8 +1,17 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+// import "tailwindcss/tailwind.css";
+import "../styles/globals.css";
+import axios from "axios";
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_BASE_ENDPOINT;
+
+function MyApp({ Component, pageProps }) {
+  return (
+    <div className="h-screen font-serif bg-gray-900 text-white grid place-content-center">
+      <div className="">
+        <Component {...pageProps} />
+      </div>
+    </div>
+  );
 }
 
-export default MyApp
+export default MyApp;
