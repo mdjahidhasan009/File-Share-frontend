@@ -18,7 +18,11 @@ const index: NextPage<{ file:IFile }> = ({ file: { format, name, sizeInBytes, id
   return <div className="flex flex-col items-center justify-center py-3 space-y-4 bg-gray-800 rounded-md shadow-lg w-96">
     {
       !id
-        ? <span>File not found!</span>
+        ? <>
+          <span>File not found!</span>
+          {console.log(id)}
+        </>
+
         : <>
           <img src="/images/file-download.png" alt="" className="w-16 h-16"/>
           <h1 className="text-xl">File is ready to be downloaded.</h1>
@@ -32,21 +36,15 @@ const index: NextPage<{ file:IFile }> = ({ file: { format, name, sizeInBytes, id
 export default index;
 
 export async function getServerSideProps(context:GetServerSidePropsContext) {
-  console.log(context.query)
   const { id } = context.query;
-  console.log(id)
   let file;
-  console.log("id="+id)
-  console.log()
   try {
-    const { data }  = await axios.get(`${process.env.API_BASE_ENDPOINT}/api/files/${id}`)
+    const { data }  = await axios.get(`${process.env.API_BASE_ENDPOINT}api/files/${id}`)
     file = data;
-    console.log(data)
   } catch (e) {
     console.log(e?.response?.data);
     file = {}
   }
-  console.log(file)
 
   return {
     props: {
